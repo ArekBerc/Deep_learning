@@ -36,7 +36,7 @@ def tanh_backward(dA, Z):
 	dZ = dA * (1 - np.pow(x,2))
 
 	return dZ
-def params(layer_dims):
+def parameters(layer_dims):
 	params = {}
 	L = len(layer_dims)
 
@@ -61,12 +61,12 @@ def forward_lin(A,W,b):
 def forward_lin_a(A_p,W,b,activation):
 	if activation == "sigmoid":
 		print("c")
-		Z,lin_cache = linear_forward(A_p,W,b)
+		Z,lin_cache = forward_lin(A_p,W,b)
 		A, active_cache = sigmoid(Z)
 
 	elif activation == "relu":
 		print("d")	
-		Z,lin_cache = linear_forward(A_p,W,b)
+		Z,lin_cache = forward_lin(A_p,W,b)
 		print("e")
 		A,activation_cache = relu(Z)
 		print("f")
@@ -159,7 +159,7 @@ def update_params(params,grads,learning_rate):
 
 def model_NN(X,Y,layer_dims,learning_rate = 0.0070,num_iterations =3200,print_cost = True):
 	costs = []
-	params = params(layer_dims)
+	params = parameters(layer_dims)
 
 	for i in range(0,num_iterations):
 		AL,caches = forward_model(X,params)
